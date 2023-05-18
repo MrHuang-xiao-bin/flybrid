@@ -1,0 +1,5 @@
+<!--pages/end/end.wxml-->
+<view id="tip"><text id="tipcontent" style="left: {{tipcontent_left}}px;">可爱的玩家，您的游戏已结束！欢迎下次更创辉煌吧</text>
+<text id="grades">您的得分是{{grades}}分</text>
+</view>
+<button bindtap="again">再来一局</button>

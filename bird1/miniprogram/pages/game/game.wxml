@@ -1,0 +1,29 @@
+<!--pages/game/game.wxml-->
+<view id="win" style="height:{{winH}}px;" bindtap="birdfly">
+<text id="count">得分：{{grades}}</text>
+<image id="bird" style="left: {{birdleft}}px;top: {{birdtop}}px;" src="../images/bird.png"/>
+<view class="zhu1">
+<image class="up" style="height:{{upzhuH[0]}}px;left: {{zhuleft[0]}}px;" src="../images/upzhu.jpg"/>
+<image class="down" style="height:{{downzhuH[0]}}px;left: {{zhuleft[0]}}px;"  src="../images/downzhu.jpg"/>
+</view>
+<view class="zhu2">
+<image class="up" style="height:{{upzhuH[1]}}px;left: {{zhuleft[1]}}px;" src="../images/upzhu.jpg"/>
+<image class="down" style="height:{{downzhuH[1]}}px;left: {{zhuleft[1]}}px;"  src="../images/downzhu.jpg"/>
+</view>
+<view class="zhu3">
+<image class="up" style="height:{{upzhuH[2]}}px;left: {{zhuleft[2]}}px;" src="../images/upzhu.jpg"/>
+<image class="down" style="height:{{downzhuH[2]}}px;left: {{zhuleft[2]}}px;"  src="../images/downzhu.jpg"/>
+</view>
+<view class="zhu4">
+<image class="up" style="height:{{upzhuH[3]}}px;left: {{zhuleft[3]}}px;" src="../images/upzhu.jpg"/>
+<image class="down" style="height:{{downzhuH[3]}}px;left: {{zhuleft[3]}}px;"  src="../images/downzhu.jpg"/>
+</view>
+<view class="zhu5">
+<image class="up" style="height:{{upzhuH[4]}}px;left: {{zhuleft[4]}}px;" src="../images/upzhu.jpg"/>
+<image class="down" style="height:{{downzhuH[4]}}px;left: {{zhuleft[4]}}px;"  src="../images/downzhu.jpg"/>
+</view>
+<view class="zhu6">
+<image class="up" style="height:{{upzhuH[5]}}px;left: {{zhuleft[5]}}px;" src="../images/upzhu.jpg"/>
+<image class="down" style="height:{{downzhuH[5]}}px;left: {{zhuleft[5]}}px;"  src="../images/downzhu.jpg"/>
+</view>
+</view>

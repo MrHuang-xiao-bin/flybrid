@@ -1,0 +1,6 @@
+/* pages/newcomponent/newcomponent.wxss */
+.inner {
+  color: red;
+  text-align: center;
+  
+}

@@ -1,0 +1,24 @@
+/* pages/end/end.wxss */
+#tip{
+ height: 100px;
+ width: 200px;
+ overflow: hidden;
+ position: relative;
+ left: 100px;
+ top: 200px;
+}
+#tipcontent{
+  color: darkred;
+ white-space: nowrap;
+ display: inline-block;
+ position: absolute;
+ background:radial-gradient(yellow,red,blue);
+ 
+ 
+}
+#grades{
+  color: rgb(29, 178, 204);
+  position: absolute;
+  top: 40px;
+  left: 20px;
+}

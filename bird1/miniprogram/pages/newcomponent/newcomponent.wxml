@@ -1,0 +1,5 @@
+<!--pages/newcomponent/newcomponent.wxml-->
+<view class="inner">
+  {{innerText}}
+</view>
+<slot></slot>
