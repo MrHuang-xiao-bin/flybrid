@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>疯狂的小鸟</title>
+        <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+            #box{
+                width: 100%;
+                height: 600px;
+                position: relative;
+                background-image: url(img/sky.png);
+               /* background-position-x: 200px; */
+            }
+            #all{
+                /* position: relative; */
+                margin: auto;
+                padding-top: 150px;
+                /* border: 1px solid red; */
+                width: 400px;
+                height: 200px;
+            }
+            #all>.bird{
+                position: absolute;
+                /* margin:auto; */
+                width: 45px;
+                height: 40px;
+                /* border: 1px solid red; */
+                background-image: url(img/birds.png);
+                /* cursor: pointer; */
+                left: 50%;
+                transform: translate(-50%);
+            }
+            #all>.news{
+                width: 100%;
+                height: 30px;
+                /* border: 1px solid blueviolet; */
+                font-size: 20px;
+                color: white;
+                text-align: center;
+                margin-top: 85px;
+                cursor: pointer;
+            }
+            #co{
+                color: white;
+                font-weight: bold;
+                font-size: 30px;
+                margin-left: 50%;
+            }
+            #mask{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                background-color: black;
+                display: none;
+                opacity: 0.6;
+                top: 0;
+            }
+            #success{
+                position: fixed;
+                width: 400px;
+                height: 150px;
+                margin-left: 50%;
+                margin-top: -220px;
+                transform: translate(-50%);
+                text-align: center;
+                display: none;
+                z-index: 1;
+            }
+
+        </style>
+    </head>
+    <body>
+        <!-- 最外层 -->
+        <div id="box">
+        <p id="co">0</p>
+
+            <div id="all">
+
+                <div class="bird">
+                    <!-- <img src="img/birds.png" alt=""> -->
+                </div>
+
+                <div class="news">
+                    开始游戏
+                </div>
+
+            </div>
+
+            <div id="mask">
+
+            </div>
+
+            <div id="success">
+                 <h1>Game over!</h1>
+                 <span>Your results</span>
+                 <!-- 分数显示，游戏结束时显示的分数 -->
+                 <p id="results">0</p>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    var bird=document.getElementsByClassName("bird")[0];
+    var all=document.getElementById("all");
+    var news=all.getElementsByClassName("news")[0];
+    var img=bird.getElementsByTagName("img")[0];
+    var box=document.getElementById("box");
+    var co=document.getElementById("co");
+    var mask=document.getElementById("mask");
+    var success=document.getElementById("success");
+    var results=document.getElementById("results");
+    var bg;
+    var uheight;
+    var dheight;
+    //判断游戏是否在进行
+    var flying=true;
+
+    //初始化小鸟变量
+    var birds={
+        stepx:52,
+        stepy:0,
+        x:bird.offsetLeft,
+        y:bird.offsetTop
+    }
+
+    //背景
+    var sky={
+        x:0
+    }
+
+    bg=setInterval(function(){
+        // sky.x=sky.x-2;
+        sky.x-=2;
+        box.style.backgroundPositionX=sky.x+"px";
+
+        //小鸟下落
+        birds.stepy+=1;
+        //小鸟距离顶部的距离
+        birds.y+=birds.stepy;
+        //判断
+        if (birds.stepy>=10) {
+            //小鸟起飞
+            birds.stepy=-10;
+            birds.y+=birds.stepy;
+        }
+        bird.style.top=birds.y+"px";
+
+    }, 30);
+
+
+    //计数器
+    var count=0;
+    //游戏开始
+    news.onclick=function(){
+        news.style.display="none";
+        co.innerHTML=count;
+        clearInterval(bg);
+        birds.stepy=0;
+        //判断游戏是否在进行
+
+        setInterval(function () {
+            if (flying) {
+
+                results.innerHTML=count;
+    
+                //背景移动
+                sky.x-=5;
+                //加单位
+                box.style.backgroundPositionX=sky.x+"px";
+                //小鸟离顶部的距离
+                birds.stepy+=1;
+                birds.y+=birds.stepy;
+                //小鸟离左边的距离
+                birds.x=birds.stepx;
+                //加单位
+                bird.style.left=birds.x+"px";
+                bird.style.top=birds.y+"px";
+
+                //判断小鸟是否碰到顶部
+                if (birds.y<=0) {
+                    flying=false;
+                    mask.style.display="block";
+                    success.style.display="block";
+                    co.style.display="none";
+                }
+
+                //bird.offsetHeight小鸟的高度
+                if (birds.y + bird.offsetHeight>=600) {
+                    flying=false;
+                    mask.style.display="block";
+                    success.style.display="block";
+                    co.style.display="none";
+                }
+            }
+        }, 60);
+
+
+        //点击背景时小鸟弹起
+        box.onclick=function () {
+            birds.stepy=-10;
+        }
+
+        
+        //生成柱子 x：用于决定生成柱子的位置
+        function creatZZ(x) {
+            var zz={};//柱子对象
+            zz.x=x//给柱子对象添加属性，用于控制柱子产生的位置
+            //上柱子的高度
+            zz.uheight=Math.ceil(Math.random()*200)+50;
+            //下柱子的高度
+            zz.dheight=600-zz.uheight-150;
+            //createElement创建标签
+            var uzz=document.createElement("div");
+            uzz.style.height=zz.uheight+"px";//上柱子的高度
+            uzz.style.width="52px";//宽度
+            uzz.style.position="absolute";//柱子的位置
+            uzz.style.left=zz.x+"px";//上柱子与左边的距离
+            uzz.style.top="0px";//上柱子与顶部的距离
+            uzz.style.background="url(img/pipe2.png) no-repeat center bottom";
+
+
+            var dzz=document.createElement("div");
+            dzz.style.height=zz.dheight+"px";//上柱子的高度
+            dzz.style.width="52px";//宽度
+            dzz.style.position="absolute";//柱子的位置
+            dzz.style.left=zz.x+"px";//上柱子与左边的距离
+            dzz.style.bottom="0px";//上柱子与顶部的距离
+            dzz.style.background="url(img/pipe1.png) no-repeat center top";
+
+            //给背景添加子元素
+            box.appendChild(uzz);
+            box.appendChild(dzz);
+
+            //柱子移动
+            setInterval(function() {
+                if (flying) {
+                    zz.x-=5;
+                    //柱子移动
+                    uzz.style.left=zz.x+"px";//上柱子移动
+                    dzz.style.left=zz.x+"px";//下柱子移动
+                    //当柱子移动到左边后就回到右边一直循环
+                    if (zz.x<=-20) {
+                        zz.x=1400;
+                    }
+
+                    //判断分数
+                    if (zz.x>=0 && birds.x>=zz.x+52) {
+                        //游戏进行时分数显示
+                        co.innerHTML=count;
+                        // 游戏结束时分数显示
+                        results.innerHTML=count;
+
+                        count++;
+                    }
+                }
+
+                //判断小鸟是否碰到柱子,是否碰到上柱子
+                var ucheck=birds.x+20>zz.x && birds.x<zz.x+52 && birds.y <= zz.uheight;
+                //是否撞到下柱子
+                var dcheck=birds.x+20>zz.x && birds.x<zz.x+52 && birds.y+50 >= zz.uheight+150;
+                if (ucheck || dcheck) {
+                    flying=false;
+                    mask.style.display="block";
+                    success.style.display="block";
+                    co.style.display="none";
+                }
+            }, 30);
+
+        }
+
+        //调用生成柱子方法
+            creatZZ(500);
+            creatZZ(1000);
+            creatZZ(1500);
+        
+    }
+
+</script>
